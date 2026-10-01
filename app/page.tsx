@@ -1,4 +1,6 @@
 import Image from "next/image"
+import { auth } from "@clerk/nextjs/server"
+import { UserButton } from "@clerk/nextjs"
 import {
   Empty,
   EmptyDescription,
@@ -7,9 +9,11 @@ import {
   EmptyTitle,
 } from "@/components/ui/empty"
 
-export default function Page() {
+export default async function Page() {
+  await auth.protect()
+
   return (
-    <div className="flex min-h-svh items-center justify-center">
+    <div className="flex min-h-svh w-full flex-col items-center justify-center gap-4">
       <Empty>
         <EmptyHeader>
           <EmptyMedia>
@@ -22,6 +26,7 @@ export default function Page() {
           </EmptyDescription>
         </EmptyHeader>
       </Empty>
+      <UserButton />
     </div>
   )
 }
